@@ -1,8 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const { User } = require("./models/User");
-const dotenv = require("dotenv");
-dotenv.config();
+const config = require("./config/key");
 
 const app = express();
 const port = 5000;
@@ -11,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 mongoose
-  .connect(process.env.REACT_APP_MONGO_URL, {
+  .connect(config.mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -21,7 +20,7 @@ mongoose
   .catch((error) => console.log(error));
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello World! 안녕하세요!");
 });
 
 app.post("/register", (req, res) => {
